@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // pages import
 import Home from "./pages/Home";
 import Success from "./pages/Success";
+import ReadSecret from "./pages/ReadSecret";
 
 // toaster import
 import { Toaster } from "react-hot-toast";
@@ -38,7 +39,8 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/success/:id" element={<Success/>}/>
+        <Route path="/success" element={<Success />} />
+        <Route path="/secret/:uuid" element={<ReadSecret />} />
       </Routes>
     </BrowserRouter>
   );
