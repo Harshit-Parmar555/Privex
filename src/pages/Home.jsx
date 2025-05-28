@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Components
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,8 @@ import {
 // Assets
 import { FaArrowRight } from "react-icons/fa";
 
+import { useSecretStore } from "@/store/useSecretStore";
+
 const EXPIRE_OPTIONS = [
   { label: "5 minutes", value: "5m" },
   { label: "10 minutes", value: "10m" },
@@ -30,10 +33,26 @@ const Home = () => {
   const [viewOnce, setViewOnce] = useState(false);
   const [expire, setExpire] = useState("");
 
+  const { generateLink, generatingLink, generatedLink, expireAt, resetLink } =
+    useSecretStore();
+
+  const navigate = useNavigate();
+
+  const getExpireDate = (expireValue) => {
+    const now = new Date();
+    let ms = 0;
+    if (expireValue.endsWith("m")) ms = parseInt(expireValue) * 60 * 1000;
+    if (expireValue.endsWith("h")) ms = parseInt(expireValue) * 60 * 60 * 1000;
+    return new Date(now.getTime() + ms).toISOString();
+  };
+
   // Handler for sending the secret (implement API call here)
-  const handleSend = () => {
-    // TODO: Implement send logic
-    // Example: send { secret, viewOnce, expire }
+  const handleSend = async () => {
+    if (!secret || !expire) return;
+    const expireAt = getExpireDate(expire);
+    await generateLink(secret, expireAt, viewOnce);
+    // After generating, redirect to success page
+    navigate("/success");
   };
 
   return (
