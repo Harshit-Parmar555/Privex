@@ -5,11 +5,14 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { FaArrowLeft } from "react-icons/fa";
+
+import { useSecretStore } from "@/store/useSecretStore";
+
 const Success = ({}) => {
   const [copied, setCopied] = useState(false);
 
-  const link = "https://app.emergent.sh/";
-  const expireAt = "2023-10-31T12:00:00Z"; // Example expiration date
+  const { generatedLink, resetLink, expireAt } = useSecretStore();
 
   const navigate = useNavigate();
 
@@ -20,26 +23,41 @@ const Success = ({}) => {
   };
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(link);
+    await navigator.clipboard.writeText(generatedLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
 
+  React.useEffect(() => {
+    if (!generatedLink) {
+      navigate("/");
+    }
+  }, [generatedLink, navigate]);
+
   return (
     <div className="w-full min-h-screen bg-[#0f0f10] flex items-center justify-center font-sans">
       <div className="w-full max-w-xl flex flex-col gap-6">
+        <header className="px-2 mb-2 flex items-center gap-2">
+          <Button
+            className="rounded-full p-2 bg-[#18181b] text-zinc-400 hover:bg-zinc-900"
+            onClick={() => navigate("/")}
+            aria-label="Back"
+          >
+            <FaArrowLeft />
+          </Button>
+          <h2 className="font-[Work_sans] text-2xl font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
+            Your Secret Link is Ready!
+          </h2>
+        </header>
         {/* Success Card */}
         <section className="w-full bg-zinc-950 rounded-2xl border border-zinc-800 flex flex-col items-center gap-7 p-8 shadow-2xl">
-          <h2 className="font-[Work_sans] text-2xl font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text mb-2">
-            Your secret link is ready!
-          </h2>
           <div className="w-full flex flex-col items-center gap-4">
             <div className="w-full flex flex-col items-center gap-2">
               <span className="text-zinc-400 text-xs">Share this link:</span>
               <div className="flex items-center w-full gap-2 bg-[#18181b] rounded-lg border border-zinc-800">
                 <input
                   className="w-full bg-[#18181b] text-zinc-200 px-4 py-2 rounded-lg border-none font-[Inter] text-sm outline-none"
-                  value={link}
+                  value={generatedLink}
                   readOnly
                 />
                 <Button
@@ -60,8 +78,11 @@ const Success = ({}) => {
 
         {/* Generate New Link Button */}
         <Button
-          className="w-full rounded-md px-5 py-3 flex items-center justify-center gap-2 font-[Inter] text-sm to-[#f2eada] bg-white text-black shadow-lg"
-          onClick={() => navigate("/")}
+          className="w-full rounded-md px-5 py-3 flex items-center justify-center gap-2 font-[Inter] text-sm text-white/80 bg-white/10  shadow-lg"
+          onClick={() => {
+            resetLink();
+            navigate("/");
+          }}
         >
           <FaRedo />
           Generate One More Link
