@@ -1,12 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FaCopy, FaRedo } from "react-icons/fa";
-import { useState } from "react";
-
+import { FaCopy, FaRedo, FaArrowLeft, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-import { FaArrowLeft } from "react-icons/fa";
-
 import { useSecretStore } from "@/store/useSecretStore";
 
 const Success = ({}) => {
@@ -35,8 +30,8 @@ const Success = ({}) => {
   }, [generatedLink, navigate]);
 
   return (
-    <div className="w-full min-h-screen bg-[#0f0f10] flex items-center justify-center font-sans">
-      <div className="w-full max-w-xl flex flex-col gap-6">
+    <div className="w-full min-h-screen bg-[#0f0f10] flex items-center justify-center font-sans overflow-hidden">
+      <div className="w-full max-w-xl px-4 flex flex-col gap-6">
         <header className="px-2 mb-2 flex items-center gap-2">
           <Button
             className="rounded-full p-2 bg-[#18181b] text-zinc-400 hover:bg-zinc-900"
@@ -45,7 +40,7 @@ const Success = ({}) => {
           >
             <FaArrowLeft />
           </Button>
-          <h2 className="font-[Work_sans] text-2xl font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
+          <h2 className="font-[Work_sans] text-[24px] md:text-[40px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
             Your Secret Link is Ready!
           </h2>
         </header>
@@ -63,10 +58,11 @@ const Success = ({}) => {
                 <Button
                   onClick={handleCopy}
                   className={`rounded-md px-3 py-2 flex items-center gap-2 font-[Inter] text-sm shadow-md
-                    ${copied ? " text-blue-200" : " text-white/40 "}
+                    ${copied ? " text-green-400" : " text-white/40 "}
                   `}
+                  aria-label={copied ? "Copied" : "Copy link"}
                 >
-                  <FaCopy />
+                  {copied ? <FaCheck className="animate-scale" /> : <FaCopy />}
                 </Button>
               </div>
             </div>
@@ -78,13 +74,13 @@ const Success = ({}) => {
 
         {/* Generate New Link Button */}
         <Button
-          className="w-full rounded-md px-5 py-3 flex items-center justify-center gap-2 font-[Inter] text-sm text-white/80 bg-white/10  shadow-lg"
+          className="w-full rounded-md px-5 py-6 flex items-center justify-center gap-2 font-[Inter] text-xs text-zinc-200 bg-zinc-900  shadow-lg"
           onClick={() => {
             resetLink();
             navigate("/");
           }}
         >
-          <FaRedo />
+      
           Generate One More Link
         </Button>
       </div>

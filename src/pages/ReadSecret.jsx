@@ -5,6 +5,8 @@ import { FaArrowLeft } from "react-icons/fa";
 
 import { useSecretStore } from "@/store/useSecretStore";
 
+import Loader from "@/custom/Loader";
+
 // Example: You will fetch the secret using the uuid param in a real app
 // For now, we'll use a placeholder
 const ReadSecret = () => {
@@ -25,8 +27,8 @@ const ReadSecret = () => {
   }, [uuid, watchSecret, resetSecret]);
 
   return (
-    <div className="w-full min-h-screen bg-[#0f0f10] flex items-center justify-center font-sans">
-      <div className="w-full max-w-xl flex flex-col gap-6">
+    <div className="w-full min-h-screen bg-[#0f0f10] flex items-center justify-center font-sans overflow-hidden">
+      <div className="w-full max-w-xl flex flex-col gap-6 px-4">
         {/* Header */}
         <header className="px-2 mb-2 flex items-center gap-2">
           <Button
@@ -36,7 +38,7 @@ const ReadSecret = () => {
           >
             <FaArrowLeft />
           </Button>
-          <h2 className="font-[Work_sans] text-2xl font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
+          <h2 className="font-[Work_sans] text-[24px] md:text-[40px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
             Secret Message
           </h2>
         </header>
@@ -48,40 +50,40 @@ const ReadSecret = () => {
               Here is your secret:
             </span>
             <div className="w-full bg-[#18181b] text-zinc-200 px-6 py-6 rounded-xl border-none font-[Inter] text-xs text-center break-words shadow-inner">
-              {secretData}
+              {fetchingSecret ? <Loader color="white" /> : secretData}
             </div>
           </div>
         </section>
 
         {/* Footer Dots & Signature */}
-        <footer className="flex items-center justify-center w-full mt-8">
+        <div className="flex items-center justify-center w-full mt-4">
           {/* Left dots */}
-          <div className="flex gap-2 opacity-40">
-            {[...Array(7)].map((_, i) => (
+          <div className="flex gap-4 opacity-40">
+            {[...Array(5)].map((_, i) => (
               <span
                 key={`left-dot-${i}`}
-                className="w-2 h-2 rounded-full bg-cyan-400"
-                style={{ opacity: i / 7 }}
+                className={`w-1 h-1 rounded-full bg-cyan-400`}
+                style={{ opacity: i / 4 }}
               />
             ))}
           </div>
 
           {/* Title */}
-          <h2 className="mx-6 text-xs font-[JetBrains_Mono] text-zinc-300 whitespace-nowrap tracking-wide">
-            Made with <span className="text-pink-400">❤️</span> HARSHIT X CODE
+          <h2 className="mx-4 text-[10px] font-[JetBrains_Mono]  text-zinc-200 whitespace-nowrap">
+            Made with ❤️ HARSHIT X CODE
           </h2>
 
           {/* Right dots */}
-          <div className="flex gap-2 opacity-40">
-            {[...Array(7)].map((_, i) => (
+          <div className="flex gap-4 opacity-40">
+            {[...Array(4)].map((_, i) => (
               <span
                 key={`right-dot-${i}`}
-                className="w-2 h-2 rounded-full bg-cyan-400"
-                style={{ opacity: (7 - i) / 7 }}
+                className={`w-1 h-1 rounded-full bg-cyan-400`}
+                style={{ opacity: (4 - i) / 4 }}
               />
             ))}
           </div>
-        </footer>
+        </div>
       </div>
     </div>
   );

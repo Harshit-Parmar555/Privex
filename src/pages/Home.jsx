@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // Components
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@radix-ui/react-toggle";
 import {
@@ -19,6 +20,9 @@ import {
 import { FaArrowRight } from "react-icons/fa";
 
 import { useSecretStore } from "@/store/useSecretStore";
+import toast from "react-hot-toast";
+
+import Loader from "@/custom/Loader";
 
 const EXPIRE_OPTIONS = [
   { label: "5 minutes", value: "5m" },
@@ -38,6 +42,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+  // Helper to get expireAt date string in ISO format
   const getExpireDate = (expireValue) => {
     const now = new Date();
     let ms = 0;
@@ -46,35 +51,46 @@ const Home = () => {
     return new Date(now.getTime() + ms).toISOString();
   };
 
-  // Handler for sending the secret (implement API call here)
+  // Handler for sending the secret
   const handleSend = async () => {
-    if (!secret || !expire) return;
+    if (!secret.trim() || !expire) {
+      toast.error("Please select an expiration time.");
+      return;
+    }
+    if (secret.length > 1000) {
+      toast.error("Secret is too long (max 1000 characters).");
+      return;
+    }
     const expireAt = getExpireDate(expire);
     await generateLink(secret, expireAt, viewOnce);
     // After generating, redirect to success page
+    setSecret("");
+    setExpire("");
+    setViewOnce(false);
     navigate("/success");
   };
 
   return (
-    <div className="w-full h-screen bg-[#0f0f10] flex justify-center ">
-      <div className="w-full max-w-3xl  flex flex-col gap-8 mt-48">
+    <div className="w-full h-dvh bg-[#0f0f10] flex items-center justify-center overflow-hidden">
+      <div className="w-full max-w-3xl  px-4 flex flex-col gap-8">
         {/* Header */}
-        <div className="p-2">
-          <h1 className="font-[Work_sans] text-4xl font-medium text-[#858585]">
+        <header className="p-2">
+          <h1 className="text-[28px] md:text-[40px] font-[Work_sans] text-4xl font-medium text-[#858585]">
             Welcome
           </h1>
-          <h2 className="font-[Work_sans] text-4xl font-medium bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text">
-            Share your secret privately
+          <h2 className="text-[28px]  md:text-[40px] font-[Work_sans] text-4xl font-medium bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text">
+            Share secret's privately
           </h2>
-        </div>
+        </header>
 
         {/* Secret Input Card */}
-        <div className="w-full min-h-44 bg-zinc-950 rounded-xl border border-zinc-800 flex flex-col justify-between gap-6 p-6 shadow-lg">
-          <Input
-            className="text-zinc-400 flex rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] font-[Inter] overflow-auto"
+        <section className="w-full min-h-44  bg-zinc-950 rounded-xl border border-zinc-800 flex flex-col justify-between gap-6 p-6 shadow-lg">
+          <Textarea
+            className="text-zinc-400 flex rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[14px] md:text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] font-[Inter] overflow-auto"
             placeholder="Enter your secret here . . . ."
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
+            maxLength={1000}
           />
 
           <div className="flex items-center justify-between gap-8">
@@ -83,7 +99,7 @@ const Home = () => {
               <Toggle
                 pressed={viewOnce}
                 onPressedChange={setViewOnce}
-                className={`px-4 py-2 font-[Inter] text-[12px] rounded-full transition-colors
+                className={`w-16  py-2 font-[Inter] text-[8px] rounded-full transition-colors
                   ${
                     viewOnce
                       ? "bg-blue-800/20 text-blue-400 border border-blue-700/20"
@@ -95,10 +111,10 @@ const Home = () => {
                 View Once
               </Toggle>
               <Select value={expire} onValueChange={setExpire}>
-                <SelectTrigger className="w-[180px] bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[12px] rounded-full border-none">
+                <SelectTrigger className="w-32  bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[8px] rounded-full border-none">
                   <SelectValue placeholder="Select Expire Time" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1f1f1e] text-white border-none rounded-md shadow-lg">
+                <SelectContent className="bg-[#090909] border-[1px] border-zinc-900 text-white rounded-md shadow-lg">
                   <SelectGroup>
                     <SelectLabel className="text-zinc-400 text-xs">
                       Expire After
@@ -128,39 +144,39 @@ const Home = () => {
               disabled={!secret}
               onClick={handleSend}
             >
-              <FaArrowRight />
+              {generatingLink ? <Loader color="black" /> : <FaArrowRight />}
             </Button>
           </div>
-        </div>
+        </section>
 
-        <div className="flex items-center justify-center w-full mt-4 ">
+        <footer className="flex items-center justify-center w-full mt-4">
           {/* Left dots */}
           <div className="flex gap-4 opacity-40">
-            {[...Array(7)].map((_, i) => (
+            {[...Array(5)].map((_, i) => (
               <span
                 key={`left-dot-${i}`}
-                className={`w-1.5 h-1.5 rounded-full bg-cyan-400`}
-                style={{ opacity: i / 7 }}
+                className={`w-1 h-1 rounded-full bg-cyan-400`}
+                style={{ opacity: i / 4 }}
               />
             ))}
           </div>
 
           {/* Title */}
-          <h2 className="mx-4 text-xs font-[JetBrains_Mono]  text-zinc-200 whitespace-nowrap">
+          <h2 className="mx-4 text-[10px] font-[JetBrains_Mono]  text-zinc-200 whitespace-nowrap">
             Made with ❤️ HARSHIT X CODE
           </h2>
 
           {/* Right dots */}
           <div className="flex gap-4 opacity-40">
-            {[...Array(7)].map((_, i) => (
+            {[...Array(4)].map((_, i) => (
               <span
                 key={`right-dot-${i}`}
-                className={`w-1.5 h-1.5 rounded-full bg-cyan-400`}
-                style={{ opacity: (7 - i) / 7 }}
+                className={`w-1 h-1 rounded-full bg-cyan-400`}
+                style={{ opacity: (4 - i) / 4 }}
               />
             ))}
           </div>
-        </div>
+        </footer>
       </div>
     </div>
   );
