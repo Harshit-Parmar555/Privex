@@ -36,7 +36,7 @@ export const useSecretStore = create((set) => ({
   watchSecret: async (uuid) => {
     set({ fetchingSecret: true });
     try {
-      const response = await axiosInstance.get(`/secret/get-secret/${uuid}`);
+      const response = await axiosInstance.get(`/secret/read-secret/${uuid}`);
       set({ secretData: response.data.secretText });
     } catch (error) {
       toast.error(
