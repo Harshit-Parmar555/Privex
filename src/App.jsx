@@ -8,6 +8,7 @@ import ReadSecret from "./pages/ReadSecret";
 
 // toaster import
 import { Toaster } from "react-hot-toast";
+import Layout from "./Layout";
 
 const App = () => {
   return (
@@ -38,9 +39,11 @@ const App = () => {
         }}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/secret/:uuid" element={<ReadSecret />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/secret/:uuid" element={<ReadSecret />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
