@@ -40,7 +40,7 @@ const Success = ({}) => {
           >
             <FaArrowLeft />
           </Button>
-          <h2 className="font-[Work_sans] text-[24px] md:text-[40px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
+          <h2 className="font-[Work_sans] text-[24px] md:text-[30px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
             Your Secret Link is Ready!
           </h2>
         </header>

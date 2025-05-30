@@ -38,7 +38,7 @@ const ReadSecret = () => {
           >
             <FaArrowLeft />
           </Button>
-          <h2 className="font-[Work_sans] text-[24px] md:text-[40px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
+          <h2 className="font-[Work_sans] text-[24px] md:text-[30px] font-semibold bg-gradient-to-r from-[#a0f0ff] via-[#d3fbe8] to-[#f2eada] text-transparent bg-clip-text ml-2">
             Secret Message
           </h2>
         </header>
@@ -49,7 +49,7 @@ const ReadSecret = () => {
             <span className="text-zinc-400 text-xs mb-2">
               Here is your secret:
             </span>
-            <div className="w-full bg-[#18181b] text-zinc-200 px-6 py-6 rounded-xl border-none font-[Inter] text-xs text-center break-words shadow-inner">
+            <div className="w-full bg-[#18181b] text-zinc-200 font-[JetBrains_Mono] px-6 py-6 rounded-xl border-none  text-xs text-center break-words shadow-inner">
               {fetchingSecret ? <Loader color="white" /> : secretData}
             </div>
           </div>
