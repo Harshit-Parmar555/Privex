@@ -1,8 +1,8 @@
+// Importing necessary modules
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@radix-ui/react-toggle";
@@ -15,15 +15,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Loader from "@/custom/Loader";
 
 // Assets
 import { FaArrowRight } from "react-icons/fa";
 
+// Importing Zustand store for managing secret generation
 import { useSecretStore } from "@/store/useSecretStore";
+
+// Importing toast for notifications
 import toast from "react-hot-toast";
 
-import Loader from "@/custom/Loader";
-
+// Constants for expiration options
 const EXPIRE_OPTIONS = [
   { label: "5 minutes", value: "5m" },
   { label: "10 minutes", value: "10m" },
@@ -32,6 +35,7 @@ const EXPIRE_OPTIONS = [
   { label: "1 hour", value: "1h" },
 ];
 
+// Home component for the main page
 const Home = () => {
   const [secret, setSecret] = useState("");
   const [viewOnce, setViewOnce] = useState(false);

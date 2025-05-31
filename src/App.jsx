@@ -1,15 +1,19 @@
+// Importing necessary modules
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// pages import
+// Pages import
 import Home from "./pages/Home";
 import Success from "./pages/Success";
 import ReadSecret from "./pages/ReadSecret";
 
-// toaster import
+// Toaster import
 import { Toaster } from "react-hot-toast";
+
+// Layout import
 import Layout from "./Layout";
 
+// Main App component
 const App = () => {
   return (
     <BrowserRouter>
@@ -49,4 +53,5 @@ const App = () => {
   );
 };
 
+// Exporting the App component
 export default App;

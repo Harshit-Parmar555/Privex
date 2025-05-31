@@ -3,7 +3,7 @@ import axios from "axios";
 
 // API URL for development and production
 const API_URL =
-  import.meta.env.MODE === "development"
+  import.meta.env.VITE_MODE === "development"
     ? "http://localhost:4000/api/v1"
     : import.meta.env.VITE_BACKEND_URL;
 

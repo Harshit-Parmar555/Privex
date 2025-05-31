@@ -1,9 +1,17 @@
+// Importing necessary modules
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { FaCopy, FaRedo, FaArrowLeft, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+
+// Components
+import { Button } from "@/components/ui/button";
+
+// Assets
+import { FaCopy, FaRedo, FaArrowLeft, FaCheck } from "react-icons/fa";
+
+// Importing Zustand store for managing secret generation
 import { useSecretStore } from "@/store/useSecretStore";
 
+// Main Success component
 const Success = ({}) => {
   const [copied, setCopied] = useState(false);
 

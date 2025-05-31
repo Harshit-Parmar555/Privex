@@ -1,14 +1,18 @@
+// Importing necessary modules
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+// Components
 import { Button } from "@/components/ui/button";
-import { FaArrowLeft } from "react-icons/fa";
-
-import { useSecretStore } from "@/store/useSecretStore";
-
 import Loader from "@/custom/Loader";
 
-// Example: You will fetch the secret using the uuid param in a real app
-// For now, we'll use a placeholder
+// Assets
+import { FaArrowLeft } from "react-icons/fa";
+
+// Importing Zustand store for managing secret retrieval
+import { useSecretStore } from "@/store/useSecretStore";
+
+// Main component for reading a secret
 const ReadSecret = () => {
   const { uuid } = useParams();
   const navigate = useNavigate();
@@ -16,9 +20,6 @@ const ReadSecret = () => {
   const { fetchingSecret, secretData, watchSecret, resetSecret } =
     useSecretStore();
 
-  // TODO: Fetch the secret using uuid from backend
-  // const [secret, setSecret] = useState("");
-  // useEffect(() => { fetchSecret(uuid).then(setSecret); }, [uuid]);
   React.useEffect(() => {
     if (uuid) watchSecret(uuid);
     return () => {

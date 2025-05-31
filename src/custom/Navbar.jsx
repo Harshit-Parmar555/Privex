@@ -1,8 +1,11 @@
+// Importing necessary modules
 import React from "react";
-import logo from "../assets/logo.png";
 
+// Assets
+import logo from "../assets/logo.png";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
+//  Navbar component for the application
 const Navbar = () => {
   return (
     <div className="w-full h-16 bg-black/20 border-b-[1px] border-zinc-900 flex items-center justify-between px-6 lg:px-16 fixed">

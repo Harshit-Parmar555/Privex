@@ -1,7 +1,13 @@
-import { axiosInstance } from "@/utils/axios";
-import toast from "react-hot-toast";
+// Importing necessary modules
 import { create } from "zustand";
 
+// Importing axios instance for API calls
+import { axiosInstance } from "@/utils/axios";
+
+// Importing toast for notifications
+import toast from "react-hot-toast";
+
+// Zustand store for managing secret generation and retrieval
 export const useSecretStore = create((set) => ({
   generatingLink: false,
   generatedLink: null,
