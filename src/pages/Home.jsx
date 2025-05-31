@@ -103,7 +103,7 @@ const Home = () => {
               <Toggle
                 pressed={viewOnce}
                 onPressedChange={setViewOnce}
-                className={`w-16  py-2 font-[Inter] text-[8px] rounded-full transition-colors
+                className={`w-16 py-2 font-[Inter] text-[8px] md:w-20 md:text-[10px] rounded-full transition-colors
                   ${
                     viewOnce
                       ? "bg-blue-800/20 text-blue-400 border border-blue-700/20"
@@ -115,7 +115,7 @@ const Home = () => {
                 View Once
               </Toggle>
               <Select value={expire} onValueChange={setExpire}>
-                <SelectTrigger className="w-32  bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[8px] rounded-full border-none">
+                <SelectTrigger className="w-32  bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[8px] md:w-36 md:text-[10px] rounded-full border-none">
                   <SelectValue placeholder="Select Expire Time" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#090909] border-[1px] border-zinc-900 text-white rounded-md shadow-lg">
