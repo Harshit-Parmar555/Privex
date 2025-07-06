@@ -94,7 +94,7 @@ const Home = () => {
           className="w-full min-h-44  bg-zinc-950 rounded-xl border border-zinc-800 flex flex-col justify-between gap-6 p-6 shadow-lg"
         >
           <Textarea
-            className="text-zinc-400 flex font-[Inter] rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[14px] md:text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] overflow-auto"
+            className="text-zinc-400 max-h-36 flex font-[Inter] rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[14px] md:text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] overflow-auto"
             placeholder="Enter your secret here . . . ."
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
