@@ -134,3 +134,7 @@
 .animate-scale {
   animation: scaleUpDown 0.5s;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

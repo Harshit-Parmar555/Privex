@@ -45,13 +45,19 @@ const ReadSecret = () => {
         </header>
 
         {/* Secret Display Card */}
-        <section className="w-full bg-zinc-950 rounded-2xl border border-zinc-800 flex flex-col items-center gap-7 p-8 shadow-2xl">
+        <section className="w-full bg-zinc-950 rounded-2xl border border-zinc-800 flex flex-col items-center gap-7 p-6 sm:p-8 shadow-2xl">
           <div className="w-full flex flex-col items-center gap-4">
             <span className="text-zinc-400 text-xs mb-2">
               Here is your secret:
             </span>
-            <div className="w-full bg-[#18181b] text-zinc-200 font-[JetBrains_Mono] px-6 py-6 rounded-xl border-none  text-xs text-center break-words shadow-inner">
-              {fetchingSecret ? <Loader color="white" /> : secretData}
+            <div className="w-full max-h-[200px] bg-[#18181b] text-zinc-200 font-[JetBrains_Mono] px-4 sm:px-6 py-4 sm:py-6 rounded-xl border-none text-xs sm:text-sm text-left break-words shadow-inner overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+              {fetchingSecret ? (
+                <div className="flex items-center justify-center min-h-[120px]">
+                  <Loader color="white" />
+                </div>
+              ) : (
+                secretData
+              )}
             </div>
           </div>
         </section>
