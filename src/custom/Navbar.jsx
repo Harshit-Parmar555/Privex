@@ -37,7 +37,7 @@ const Navbar = () => {
         </a>
 
         <a
-          href="https://x.com/HARSHIT18554445?t=3VdU7yZsWnjNuPcle76cTQ&s=09"
+          href="https://x.com/harshitxcodes"
           target="_blank"
           rel="noopener noreferrer"
         >

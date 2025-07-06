@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Loader from "@/custom/Loader";
+import { Button as Btn } from "@/components/ui/moving-border";
 
 // Assets
 import { FaArrowRight } from "react-icons/fa";
@@ -76,7 +77,7 @@ const Home = () => {
 
   return (
     <div className="w-full h-dvh bg-[#0f0f10] flex items-center justify-center overflow-hidden">
-      <div className="w-full max-w-3xl  px-4 flex flex-col gap-8">
+      <div className="w-full max-w-3xl  px-4 flex flex-col gap-6">
         {/* Header */}
         <header className="p-2">
           <h1 className="text-[28px] md:text-[40px] font-[Work_sans] text-4xl font-medium text-[#858585]">
@@ -88,22 +89,25 @@ const Home = () => {
         </header>
 
         {/* Secret Input Card */}
-        <section className="w-full min-h-44  bg-zinc-950 rounded-xl border border-zinc-800 flex flex-col justify-between gap-6 p-6 shadow-lg">
+        <Btn
+          duration={8000}
+          className="w-full min-h-44  bg-zinc-950 rounded-xl border border-zinc-800 flex flex-col justify-between gap-6 p-6 shadow-lg"
+        >
           <Textarea
-            className="text-zinc-400 flex rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[14px] md:text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] font-[Inter] overflow-auto"
+            className="text-zinc-400 flex font-[Inter] rounded-md border-input ring-offset-background placeholder:text-white/20 focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-t-[18px] text-[14px] md:text-[16px] resize-none border-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 caret-[#80FFF9] overflow-auto"
             placeholder="Enter your secret here . . . ."
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
             maxLength={1000}
           />
 
-          <div className="flex items-center justify-between gap-8">
+          <div className="w-full flex items-center justify-between gap-8">
             {/* Left: View Once Toggle & Expire Select */}
             <div className="flex items-center gap-4">
               <Toggle
                 pressed={viewOnce}
                 onPressedChange={setViewOnce}
-                className={`w-16 py-2 font-[Inter] text-[8px] md:w-20 md:text-[10px] rounded-full transition-colors
+                className={`w-16 py-2 font-[Inter] text-[8px] md:w-20 md:text-[10px] rounded-full transition-colors cursor-pointer
                   ${
                     viewOnce
                       ? "bg-blue-800/20 text-blue-400 border border-blue-700/20"
@@ -115,7 +119,7 @@ const Home = () => {
                 View Once
               </Toggle>
               <Select value={expire} onValueChange={setExpire}>
-                <SelectTrigger className="w-32  bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[8px] md:w-36 md:text-[10px] rounded-full border-none">
+                <SelectTrigger className="w-32  bg-[#1f1f1e] text-zinc-400 font-[Inter] text-[8px] md:w-36 md:text-[10px] rounded-full border-none cursor-pointer">
                   <SelectValue placeholder="Select Expire Time" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#090909] border-[1px] border-zinc-900 text-white rounded-md shadow-lg">
@@ -151,7 +155,7 @@ const Home = () => {
               {generatingLink ? <Loader color="black" /> : <FaArrowRight />}
             </Button>
           </div>
-        </section>
+        </Btn>
 
         <footer className="flex items-center justify-center w-full mt-4">
           {/* Left dots */}
